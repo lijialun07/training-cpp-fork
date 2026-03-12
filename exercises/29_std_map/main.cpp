@@ -8,11 +8,25 @@
 template<class k, class v>
 bool key_exists(std::map<k, v> const &map, k const &key) {
     // TODO: 实现函数
+    bool ret = false;
+    for (auto [k_, v_] : map) {
+        if (key == k_) {
+            ret = true;
+            break;
+        }
+    }
+    return ret;
 }
 
 template<class k, class v>
 void set(std::map<k, v> &map, k key, v value) {
     // TODO: 实现函数
+    auto it = map.find(key);
+    if (it == map.end()) {
+        map.insert(std::pair<k, v>(key, value));
+    } else {
+        it->second = value;
+    }
 }
 
 // READ: `std::unordered_map` <https://zh.cppreference.com/w/cpp/container/unordered_map>
@@ -25,11 +39,25 @@ void set(std::map<k, v> &map, k key, v value) {
 template<class k, class v>
 bool unordered_key_exists(std::unordered_map<k, v> const &map, k const &key) {
     // TODO: 实现函数
+    bool ret = false;
+    for (auto [k_, v_] : map) {
+        if (key == k_) {
+            ret = true;
+            break;
+        }
+    }
+    return ret;
 }
 
 template<class k, class v>
 void unordered_set(std::unordered_map<k, v> &map, k key, v value) {
     // TODO: 实现函数
+    auto it = map.find(key);
+    if (it == map.end()) {
+        map.insert(std::pair<k, v>(key, value));
+    } else {
+        it->second = value;
+    }
 }
 
 // ---- 不要修改以下代码 ----
