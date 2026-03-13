@@ -31,8 +31,9 @@ struct DerivedStruct : BaseStruct { // 默认 public 继承
 
 class DerivedClass : BaseClass { // 默认 private 继承
     int derived_data = 4;
-    
+
 // TODO: 如何能让外部访问基类的成员？
+public:
     int get_base_data() const { return base_data; } // 需要公有方法访问基类成员
 };
 
@@ -51,7 +52,7 @@ int main(int argc, char **argv) {
     // 成员访问权限测试
     MyStruct s;
     s.data = 10; // 可以直接访问 struct 的成员
-    ASSERT(s.data == ?, "结构体成员默认是 public");
+    ASSERT(s.data == 10, "结构体成员默认是 public");
 
     MyClass c;
     // c.data = 20; // 编译错误！类成员默认是 private
@@ -59,21 +60,21 @@ int main(int argc, char **argv) {
 
     // 继承访问权限测试
     DerivedStruct ds;
-    ASSERT(ds.base_data == ?, "结构体默认 public 继承，可以访问基类 public 成员");
-    ASSERT(ds.derived_data == ?, "派生结构体可以访问自己的成员");
+    ASSERT(ds.base_data == 1, "结构体默认 public 继承，可以访问基类 public 成员");
+    ASSERT(ds.derived_data == 3, "派生结构体可以访问自己的成员");
 
     DerivedClass dc;
     // ASSERT(dc.base_data == ?, "类默认 private 继承，无法直接访问基类 public 成员"); // 编译错误
-    ASSERT(dc.get_base_data() == ?, "通过派生类的公有方法访问基类成员");
+    ASSERT(dc.get_base_data() == 2, "通过派生类的公有方法访问基类成员");
     // ASSERT(dc.derived_data == ?, "派生类无法直接访问自己的 private 成员"); // 编译错误
 
     DerivedStructFromClass dsfc;
-    ASSERT(dsfc.base_data == ?, "结构体继承类，默认 public 继承，可以访问基类 public 成员");
-    ASSERT(dsfc.derived_data == ?, "派生结构体可以访问自己的成员");
+    ASSERT(dsfc.base_data == 2, "结构体继承类，默认 public 继承，可以访问基类 public 成员");
+    ASSERT(dsfc.derived_data == 5, "派生结构体可以访问自己的成员");
 
     DerivedClassFromStruct dcfs;
     // ASSERT(dcfs.base_data == ?, "类继承结构体，默认 private 继承，无法直接访问基类 public 成员"); // 编译错误
-    ASSERT(dcfs.get_base_data() == ?, "通过派生类的公有方法访问基类成员");
+    ASSERT(dcfs.get_base_data() == 1, "通过派生类的公有方法访问基类成员");
     // ASSERT(dcfs.derived_data == ?, "派生类无法直接访问自己的 private 成员"); // 编译错误
 
     return 0;

@@ -39,13 +39,13 @@ int main(int argc, char **argv) {
     int &rx = x;        // rx 是 x 的引用，是左值
     const int &crx = x; // crx 是 x 的常量引用，是左值
 
-    ASSERT(is_lvalue(x) == ?, "变量 x 应该是左值");
-    ASSERT(is_lvalue(cx) == ?, "常量 cx 应该是左值");
-    ASSERT(is_lvalue(rx) == ?, "引用 rx 应该是左值");
-    ASSERT(is_lvalue(crx) == ?, "常量引用 crx 应该是左值");
-    ASSERT(is_lvalue(42) == ?, "字面量 42 应该是右值");
-    ASSERT(is_lvalue(x + 1) == ?, "表达式 x + 1 的结果是临时值，应该是右值");
-    ASSERT(is_lvalue(std::move(x)) == ?, "std::move(x) 将 x 转换为右值引用（将亡值），应该是右值");
+    ASSERT(is_lvalue(x) == true, "变量 x 应该是左值");
+    ASSERT(is_lvalue(cx) == true, "常量 cx 应该是左值");
+    ASSERT(is_lvalue(rx) == true, "引用 rx 应该是左值");
+    ASSERT(is_lvalue(crx) == true, "常量引用 crx 应该是左值");
+    ASSERT(is_lvalue(42) == false, "字面量 42 应该是右值");
+    ASSERT(is_lvalue(x + 1) == false, "表达式 x + 1 的结果是临时值，应该是右值");
+    ASSERT(is_lvalue(std::move(x)) == false, "std::move(x) 将 x 转换为右值引用（将亡值），应该是右值");
 
     // 练习 2: 理解万能引用和完美转发
     int i = 1;
@@ -53,22 +53,22 @@ int main(int argc, char **argv) {
 
     // 测试 wrapper_perfect_forward
     // 传入右值 (字面量 100)
-    ASSERT(wrapper_perfect_forward(100) == ?, "传递右值给完美转发包装器，转发后应为右值");
+    ASSERT(wrapper_perfect_forward(100) == false, "传递右值给完美转发包装器，转发后应为右值");
     // 传入左值 (变量 i)
-    ASSERT(wrapper_perfect_forward(i) == ?, "传递左值给完美转发包装器，转发后应为左值");
+    ASSERT(wrapper_perfect_forward(i) == true, "传递左值给完美转发包装器，转发后应为左值");
     // 传入常量左值 (变量 ci)
-    ASSERT(wrapper_perfect_forward(ci) == ?, "传递常量左值给完美转发包装器，转发后应为左值");
+    ASSERT(wrapper_perfect_forward(ci) == true, "传递常量左值给完美转发包装器，转发后应为左值");
     // 传入将亡值 (std::move(i))
-    ASSERT(wrapper_perfect_forward(std::move(i)) == ?, "传递将亡值给完美转发包装器，转发后应为右值");
+    ASSERT(wrapper_perfect_forward(std::move(i)) == false, "传递将亡值给完美转发包装器，转发后应为右值");
 
     // 测试 wrapper_no_forward
     int j = 3;
     // 传入右值 (字面量 200)
-    ASSERT(wrapper_no_forward(200) == ?, "传递右值给非完美转发包装器，参数本身在函数内是左值");
+    ASSERT(wrapper_no_forward(200) == true, "传递右值给非完美转发包装器，参数本身在函数内是左值");
     // 传入左值 (变量 j)
-    ASSERT(wrapper_no_forward(j) == ?, "传递左值给非完美转发包装器，参数本身在函数内是左值");
+    ASSERT(wrapper_no_forward(j) == true, "传递左值给非完美转发包装器，参数本身在函数内是左值");
     // 传入将亡值 (std::move(j))
-    ASSERT(wrapper_no_forward(std::move(j)) == ?, "传递将亡值给非完美转发包装器，参数本身在函数内是左值");
+    ASSERT(wrapper_no_forward(std::move(j)) == true, "传递将亡值给非完美转发包装器，参数本身在函数内是左值");
 
     // THINK:
     // 1. 为什么函数参数（即使是右值引用类型）在函数体内本身是左值？

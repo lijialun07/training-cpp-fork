@@ -46,7 +46,7 @@ int main(int argc, char **argv) {
         // 捕获 std::runtime_error 类型的异常
         error_msg = e.what();
     }
-    ASSERT(error_msg == ?, "捕获到的错误信息应该是什么？");
+    ASSERT(error_msg == "Division by zero", "捕获到的错误信息应该是什么？");
 
     // ---- 练习 2: 捕获 std::out_of_range ----
     std::vector<char> my_vec = {'a', 'b', 'c'};
@@ -60,7 +60,7 @@ int main(int argc, char **argv) {
         out_of_range_msg = e.what();
     }
     ASSERT(element == '\0', "访问失败，element 应该保持初始值");
-    ASSERT(out_of_range_msg == ?, "捕获到的越界错误信息应该是什么？");
+    ASSERT(out_of_range_msg == "Index out of range", "捕获到的越界错误信息应该是什么？");
 
     // ---- 练习 3: 抛出和捕获自定义异常 ----
     std::string custom_exception_msg;
@@ -74,7 +74,7 @@ int main(int argc, char **argv) {
         // 也可以捕获基类 std::exception
         ASSERT(false, "Should have caught MyException specifically.");
     }
-    ASSERT(custom_exception_msg == ?, "捕获到的自定义异常信息应该是什么？");
+    ASSERT(custom_exception_msg == "This is my custom exception!", "捕获到的自定义异常信息应该是什么？");
 
     // ---- 练习 4: noexcept 说明符 ----
     // noexcept 告诉编译器和调用者这个函数不会抛出异常
@@ -86,7 +86,7 @@ int main(int argc, char **argv) {
         // 这个 catch 块不应该被执行
         noexcept_works = false;
     }
-    ASSERT(noexcept_works == ?, "noexcept 函数是否按预期工作？ (true/false)");
+    ASSERT(noexcept_works == true, "noexcept 函数是否按预期工作？ (true/false)");
 
     // THINK：什么时候应该使用异常？什么时候不应该？异常处理的成本是什么？
 

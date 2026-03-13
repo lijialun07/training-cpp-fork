@@ -8,7 +8,7 @@ int main(int argc, char **argv) {
     // 练习 1: 基本的 new 和 delete
     // 分配一个 int 类型的动态内存
     int *p_int = new int(10);
-    ASSERT(*p_int == ?, "p_int 指向的值应该是 10");
+    ASSERT(*p_int == 10, "p_int 指向的值应该是 10");
     // 释放内存
     delete p_int;
     // ASSERT(*p_int == ?, "访问已释放的内存是未定义行为，这里只是为了演示，实际不应访问"); // 取消注释这行会导致未定义行为
@@ -16,8 +16,8 @@ int main(int argc, char **argv) {
     // 练习 2: 基本的 new[] 和 delete[]
     // 分配一个包含 5 个 int 的数组
     int *p_arr = new int[5]{1, 2, 3, 4, 5};
-    ASSERT(p_arr[0] == ?, "数组第一个元素应该是 1");
-    ASSERT(p_arr[4] == ?, "数组第五个元素应该是 5");
+    ASSERT(p_arr[0] == 1, "数组第一个元素应该是 1");
+    ASSERT(p_arr[4] == 5, "数组第五个元素应该是 5");
     // 释放数组内存
     delete[] p_arr;
     // ASSERT(p_arr[0] == ?, "访问已释放的内存是未定义行为"); // 取消注释这行会导致未定义行为

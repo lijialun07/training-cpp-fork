@@ -59,6 +59,9 @@ public:
     // 析构函数：释放资源
     ~ResourceGuard() {
         // TODO: 释放资源
+        if (resource_ptr) {
+            resource_ptr->release();
+        }
     }
 
     // 禁止拷贝构造
@@ -88,7 +91,7 @@ public:
 
     // 获取底层资源指针
     MockResource* get() const {
-        return ?;
+        return resource_ptr;
     }
 
     // 重载 -> 运算符
