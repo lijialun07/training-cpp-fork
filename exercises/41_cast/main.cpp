@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <cstdint>
 
 // READ: C++ 强制类型转换 <https://zh.cppreference.com/w/cpp/language/explicit_cast>
 // READ: static_cast <https://zh.cppreference.com/w/cpp/language/static_cast>

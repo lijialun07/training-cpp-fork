@@ -1,6 +1,7 @@
 #include "../exercise.h"
 #include <stack>
 #include <string>
+#include <vector>
 
 // READ: std::stack <https://zh.cppreference.com/w/cpp/container/stack>
 
@@ -76,7 +77,7 @@ int main(int argc, char **argv) {
     ASSERT(s.empty(), "stack should be empty after final pop");
     ASSERT(s.size() == 0, "stack size should be 0 after final pop");
 
-    // NOTICE: 
+    // NOTICE:
     // 尝试访问空栈的栈顶元素（会导致未定义行为，通常是程序崩溃）
     // 在实际代码中应避免这种情况，总是在访问 top() 前检查 empty()
 
