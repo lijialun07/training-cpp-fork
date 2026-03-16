@@ -17,47 +17,6 @@ struct MyUniquePtr {
     // NOTICE: 面试时经常会问到 unique_ptr 的实现原理，建议自己独立实现一个简单的 unique_ptr。
     // 这有助于加深对 unique_ptr 的理解，并且可以在面试中展示自己的能力。
     // 例如，构造函数、析构函数、移动构造函数、移动赋值运算符等。
-    MyUniquePtr(): data(nullptr) {};
-    MyUniquePtr(T* ptr): data(ptr) {
-        ptr = nullptr;
-    };
-    MyUniquePtr(const MyUniquePtr&) = delete;
-    MyUniquePtr(MyUniquePtr&& other) {
-        data = other.data;
-        other.data = nullptr;
-    }
-    ~MyUniquePtr() {
-        delete data;
-    }
-
-    MyUniquePtr& operator=(const MyUniquePtr&) = delete;
-    MyUniquePtr& operator=(MyUniquePtr&& other) {
-        if (&other != this) {
-            data = other.data;
-            other.data = nullptr;
-        }
-        return *this;
-    }
-
-    void reset(T* ptr) {
-        if (ptr != data) {
-            delete data;
-            data = ptr;
-        }
-    }
-
-    T* release() {
-        T* tmp = data;
-        data = nullptr;
-        return tmp;
-    }
-
-    T operator[](size_t i) {
-        return data[i];
-    }
-
-private:
-    T* data;
 };
 
 int main(int argc, char **argv) {

@@ -1,6 +1,5 @@
 ﻿#include "../exercise.h"
 #include <string>
-#include <type_traits>
 
 // READ: 字符串 <https://zh.cppreference.com/w/cpp/string/basic_string>
 
@@ -57,7 +56,7 @@ int main(int argc, char **argv) {
     hello.resize(10);
     hello.reserve(100);
     ASSERT(hello.size() == 10, "Fill in the missing value.");
-    ASSERT(hello.capacity() == 103, "Fill in the missing value.");
+    ASSERT(hello.capacity() == 100, "Fill in the missing value.");  // Mac OS -> Clang++: 103
 
     // NOTICE: 注意 `std::string` 的SSO优化，什么条件下使用栈内存，什么条件下使用堆内存。
     // READ: SSO优化 <https://lb3fn675fh.feishu.cn/wiki/A30KwguMein859k9xtzcJtSRnYc>

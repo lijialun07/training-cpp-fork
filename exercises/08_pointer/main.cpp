@@ -5,6 +5,25 @@ bool is_fibonacci(int *ptr, int len, int stride) {
     ASSERT(len >= 3, "`len` should be at least 3");
     // TODO: 编写代码判断从 ptr 开始，每 stride 个元素取 1 个元素，组成长度为 n 的数列是否满足
     // arr[i + 2] = arr[i] + arr[i + 1]
+
+    // 如果步长过大以至于无法取到至少三个元素，则直接返回 false
+    if (stride <= 0 || (len - 1) * stride < 2 * stride) { // 至少需要 ptr, ptr+stride, ptr+2*stride 三个有效位置
+        return false;
+    }
+
+    // 取出前两个元素
+    int a = *ptr;
+    int b = *(ptr + stride);
+
+    // 从第三个元素开始遍历，下标 k 表示取出的第几个元素（从0开始）
+    for (int k = 2; k < len; ++k) {
+        int c = *(ptr + k * stride);
+        if (c != a + b) {
+            return false;
+        }
+        a = b;
+        b = c;
+    }
     return true;
 }
 
