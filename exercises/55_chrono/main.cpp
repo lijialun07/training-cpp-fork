@@ -1,5 +1,6 @@
 #include "../exercise.h"
 #include <chrono>
+#include <iomanip>
 #include <iostream>
 #include <thread>
 
@@ -16,28 +17,28 @@ int main(int argc, char **argv) {
 
     // 2. 创建一个表示 100 毫秒的 duration
     std::chrono::milliseconds ms100(100);
-    ASSERT(ms100.count() == ?, "100 毫秒的 count 应该是 100");
+    ASSERT(ms100.count() == 100, "100 毫秒的 count 应该是 100");
 
     // 3. 创建一个表示 3 秒的 duration
     std::chrono::seconds sec3(3);
-    ASSERT(sec3.count() == ?, "3 秒的 count 应该是 3");
+    ASSERT(sec3.count() == 3, "3 秒的 count 应该是 3");
 
     // 4. duration 类型转换：将秒转换为毫秒
     std::chrono::milliseconds ms_from_sec = sec3;
-    ASSERT(ms_from_sec.count() == ?, "3 秒等于多少毫秒？");
+    ASSERT(ms_from_sec.count() == 3000, "3 秒等于多少毫秒？");
 
     // 5. duration 类型转换：将毫秒转换为微秒
     std::chrono::microseconds micro_from_ms = ms100;
-    ASSERT(micro_from_ms.count() == ?, "100 毫秒等于多少微秒？");
+    ASSERT(micro_from_ms.count() == 100000, "100 毫秒等于多少微秒？");
 
     // 6. duration 运算：加法
     auto total_ms = ms100 + sec3;
-    ASSERT(total_ms.count() == ?, "100 毫秒 + 3 秒 等于多少毫秒？");
-    ASSERT(std::chrono::duration_cast<std::chrono::seconds>(total_ms).count() == ?, "100 毫秒 + 3 秒 大约等于多少秒 (向下取整)？");
+    ASSERT(total_ms.count() == 3100, "100 毫秒 + 3 秒 等于多少毫秒？");
+    ASSERT(std::chrono::duration_cast<std::chrono::seconds>(total_ms).count() == 3, "100 毫秒 + 3 秒 大约等于多少秒 (向下取整)？");
 
     // 7. duration 运算：减法
     auto diff_ms = sec3 - ms100;
-    ASSERT(diff_ms.count() == ?, "3 秒 - 100 毫秒 等于多少毫秒？");
+    ASSERT(diff_ms.count() == 2900, "3 秒 - 100 毫秒 等于多少毫秒？");
 
     // 8. time_point 运算：加上 duration
     auto later = now + sec3;
@@ -53,10 +54,10 @@ int main(int argc, char **argv) {
     auto duration_diff = later - earlier;
     // 将 duration 转换为小时
     auto hours_diff = std::chrono::duration_cast<std::chrono::hours>(duration_diff);
-    ASSERT(hours_diff.count() == ?, "(now + 3s) 和 (now - 1h) 之间相差大约多少小时？");
+    ASSERT(hours_diff.count() == 1, "(now + 3s) 和 (now - 1h) 之间相差大约多少小时？");
     // 将 duration 转换为分钟
     auto minutes_diff = std::chrono::duration_cast<std::chrono::minutes>(duration_diff);
-    ASSERT(minutes_diff.count() == ?, "(now + 3s) 和 (now - 1h) 之间相差大约多少分钟？");
+    ASSERT(minutes_diff.count() == 60, "(now + 3s) 和 (now - 1h) 之间相差大约多少分钟？");
 
     // 11. 使用 steady_clock 进行精确计时
     auto start = std::chrono::steady_clock::now();
@@ -66,7 +67,7 @@ int main(int argc, char **argv) {
     auto elapsed_ms = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
     std::cout << "模拟操作耗时: " << elapsed_ms.count() << " 毫秒" << std::endl;
     // 注意：实际耗时可能略大于 50ms
-    ASSERT(elapsed_ms.count() >= ?, "耗时至少应为 50 毫秒");
+    ASSERT(elapsed_ms.count() >= 50, "耗时至少应为 50 毫秒");
 
     return 0;
 }
