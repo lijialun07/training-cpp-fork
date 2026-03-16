@@ -17,8 +17,10 @@ public:
 
     // TODO: 声明全局函数 `print_private_val` 为 A 的友元
     // TIPS: 在类定义内部使用 `friend` 关键字
+    friend void print_private_val(const A& a);
 
     // TODO: 声明类 B 为 A 的友元
+    friend class B;
 };
 
 // 全局函数，尝试访问 A 的私有成员
@@ -43,7 +45,7 @@ int main(int argc, char **argv) {
 
     B b;
     int val_from_b = b.access_private_val(a);
-    ASSERT(val_from_b == ?, "Value accessed by friend class B should be 10");
+    ASSERT(val_from_b == 10, "Value accessed by friend class B should be 10");
     std::cout << "Value accessed by friend class B: " << val_from_b << std::endl;
 
     // THINK: 友元关系是单向的吗？ B 是 A 的友元，那么 A 是 B 的友元吗？
