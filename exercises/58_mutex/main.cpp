@@ -81,7 +81,7 @@ int main(int argc, char **argv) {
             }
         }
         std::cout << "Expected: " << expected_value << ", Actual: " << shared_counter << std::endl;
-        ASSERT(shared_counter == ?, "使用 std::mutex 后计数器值应正确");
+        ASSERT(shared_counter == 40000, "使用 std::mutex 后计数器值应正确");
     }
 
     // 2. 使用 std::lock_guard 自动管理锁 (RAII)
@@ -98,7 +98,7 @@ int main(int argc, char **argv) {
             }
         }
         std::cout << "Expected: " << expected_value << ", Actual: " << shared_counter << std::endl;
-        ASSERT(shared_counter == ?, "使用 std::lock_guard 后计数器值应正确");
+        ASSERT(shared_counter == 40000, "使用 std::lock_guard 后计数器值应正确");
     }
 
     // 3. 使用 std::unique_lock 进行灵活的锁管理
@@ -115,7 +115,7 @@ int main(int argc, char **argv) {
             }
         }
         std::cout << "Expected: " << expected_value << ", Actual: " << shared_counter << std::endl;
-        ASSERT(shared_counter == ?, "使用 std::unique_lock 后计数器值应正确");
+        ASSERT(shared_counter == 40000, "使用 std::unique_lock 后计数器值应正确");
 
         // unique_lock 的其他功能示例
         std::unique_lock<std::mutex> lock(counter_mutex, std::defer_lock);// 延迟锁定
@@ -145,7 +145,7 @@ int main(int argc, char **argv) {
         recursive_function(recursion_depth);
         std::cout << "Recursive counter: " << recursive_counter << std::endl;
         // 每次调用 recursive_function (包括初始调用) 都会增加计数器
-        ASSERT(recursive_counter == ?, "递归调用后计数器值应为 depth + 1");
+        ASSERT(recursive_counter == 6, "递归调用后计数器值应为 depth + 1");
 
         // 尝试从另一个线程锁定 recursive_mutex
         std::thread t([&]() {
@@ -153,7 +153,7 @@ int main(int argc, char **argv) {
             recursive_counter += 10;
         });
         if (t.joinable()) { t.join(); }
-        ASSERT(recursive_counter == ?, "另一个线程修改后计数器值应增加");
+        ASSERT(recursive_counter == 16, "另一个线程修改后计数器值应增加");
     }
 
     return 0;

@@ -8,7 +8,7 @@
 #define VEC_SIZE 24
 #endif
 #ifdef __linux__
-#define VEC_SIZE_40
+#define VEC_SIZE 40
 #endif
 
 // TODO: 将下列 `?` 替换为正确的代码
