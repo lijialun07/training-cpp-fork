@@ -3,6 +3,13 @@
 
 // READ: 字符串 <https://zh.cppreference.com/w/cpp/string/basic_string>
 
+#ifdef __APPLE__
+#define HELLO_CAP 103
+#endif
+#ifdef __linux__
+#define HELLO_CAP 100
+#endif
+
 std::string reverse_string(const std::string& str) {
     // TODO: 实现字符串反转函数
     if (str.length() == 0) {
@@ -56,7 +63,7 @@ int main(int argc, char **argv) {
     hello.resize(10);
     hello.reserve(100);
     ASSERT(hello.size() == 10, "Fill in the missing value.");
-    ASSERT(hello.capacity() == 100, "Fill in the missing value.");  // Mac OS -> Clang++: 103
+    ASSERT(hello.capacity() == HELLO_CAP, "Fill in the missing value.");  // Mac OS -> Clang++: 103
 
     // NOTICE: 注意 `std::string` 的SSO优化，什么条件下使用栈内存，什么条件下使用堆内存。
     // READ: SSO优化 <https://lb3fn675fh.feishu.cn/wiki/A30KwguMein859k9xtzcJtSRnYc>
