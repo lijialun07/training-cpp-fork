@@ -71,7 +71,7 @@ int main(int argc, char **argv) {
                 t.join();
             }
         }
-        ASSERT(threads.size() == ?, "Should have created 3 threads");
+        ASSERT(threads.size() == 3, "Should have created 3 threads");
     }
 
     // 3. 使用互斥锁进行同步
@@ -97,7 +97,7 @@ int main(int argc, char **argv) {
         int expected_value = num_threads * increments_per_thread;
         std::cout << "Expected counter value: " << expected_value << std::endl;
         std::cout << "Actual counter value: " << global_counter << std::endl;
-        ASSERT(global_counter == ?, "Counter should be equal to num_threads * increments_per_thread");
+        ASSERT(global_counter == 50000, "Counter should be equal to num_threads * increments_per_thread");
     }
 
     // 4. 获取硬件并发数 (HINT：这只是一个提示值，不保证准确)

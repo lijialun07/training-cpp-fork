@@ -35,7 +35,7 @@ int main(int argc, char **argv) {
     std::future<int> sum_future = std::async(std::launch::async, calculate_sum, data);
     // 等待结果并获取
     int sum_result = sum_future.get();
-    ASSERT(sum_result == ?, "异步计算结果应为 15");
+    ASSERT(sum_result == 15, "异步计算结果应为 15");
 
     // 2. 使用 std::packaged_task 包装任务
     std::packaged_task<int(const std::vector<int> &)> task(calculate_sum);
@@ -45,7 +45,7 @@ int main(int argc, char **argv) {
     task_thread.detach();// 分离线程，让它自行运行
     // 等待并获取结果
     int task_result = task_future.get();
-    ASSERT(task_result == ?, "packaged_task 计算结果应为 15");
+    ASSERT(task_result == 15, "packaged_task 计算结果应为 15");
 
     // 3. 使用 std::promise 在线程间传递值
     std::promise<std::string> promise_obj;
@@ -63,7 +63,7 @@ int main(int argc, char **argv) {
     });
     // 从 future 获取值
     std::string promise_result = promise_future.get();
-    ASSERT(promise_result == "?", "从 promise 获取的值不正确");
+    ASSERT(promise_result == "来自 promise 的数据", "从 promise 获取的值不正确");
     promise_thread.join();// 等待线程结束
 
     // 4. 处理 std::future 中的异常 (使用 std::async)
@@ -72,7 +72,7 @@ int main(int argc, char **argv) {
         int exception_result = exception_future.get();
         ASSERT(false, "这里不应该被执行，因为 future 应该包含异常");
     } catch (const std::runtime_error &e) {
-        ASSERT(std::string(e.what()) == "?", "捕获到的异常信息不正确");
+        ASSERT(std::string(e.what()) == "计算失败", "捕获到的异常信息不正确");
     } catch (...) {
         ASSERT(false, "捕获到了未知的异常类型");
     }
@@ -91,7 +91,7 @@ int main(int argc, char **argv) {
         future_exception_promise.get();
         ASSERT(false, "这里不应该被执行，因为 future 应该包含异常");
     } catch (const std::logic_error &e) {
-        ASSERT(std::string(e.what()) == "?", "通过 promise 传递的异常信息不正确");
+        ASSERT(std::string(e.what()) == "逻辑错误", "通过 promise 传递的异常信息不正确");
     } catch (...) {
         ASSERT(false, "捕获到了未知的异常类型");
     }
@@ -102,9 +102,9 @@ int main(int argc, char **argv) {
         std::this_thread::sleep_for(std::chrono::milliseconds(200));
     });
     std::future_status status = wait_future.wait_for(std::chrono::milliseconds(50));
-    ASSERT(status == std::future_status::?, "在 50ms 时，future 应该仍在运行");
+    ASSERT(status == std::future_status::timeout, "在 50ms 时，future 应该仍在运行");
     status = wait_future.wait_for(std::chrono::milliseconds(300));
-    ASSERT(status == std::future_status::?, "在 300ms 时，future 应该已经完成");
+    ASSERT(status == std::future_status::ready, "在 300ms 时，future 应该已经完成");
 
     return 0;
 }
