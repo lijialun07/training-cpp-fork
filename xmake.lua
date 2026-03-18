@@ -5,7 +5,7 @@ set_languages("cxx17")
 
 -- 添加一个选项来控制是否编译可选练习题 (66 及之后)
 option("enable_optional_exercises")
-    set_default(false)
+    set_default(true)
     set_showmenu(true)
     set_description("Enable optional exercises")
 

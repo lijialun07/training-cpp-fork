@@ -268,7 +268,7 @@ add_files("64_any/main.cpp")
 target("exercise65")
 add_files("65_structured_bindings/main.cpp")
 
-if get_config("enable_optional_exercises") then
+-- if get_config("enable_optional_exercises") then
 
 -- if constexpr (C++17)
 target("exercise66")
@@ -329,4 +329,4 @@ add_files("78_ctad/main.cpp")
 target("exercise79")
 add_files("79_crtp/main.cpp")
 
-end
+-- end
