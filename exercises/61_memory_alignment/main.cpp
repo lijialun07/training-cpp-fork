@@ -33,44 +33,44 @@ struct alignas(16) CustomAlignedStruct {
 // TODO: 将下列 `?` 替换为正确的代码
 int main(int argc, char **argv) {
     // ---- 基本类型的 sizeof 和 alignof ----
-    ASSERT(sizeof(char) == ?, "char 的大小");
-    ASSERT(alignof(char) == ?, "char 的对齐要求");
+    ASSERT(sizeof(char) == 1, "char 的大小");
+    ASSERT(alignof(char) == 1, "char 的对齐要求");
 
-    ASSERT(sizeof(int) == ?, "int 的大小");
-    ASSERT(alignof(int) == ?, "int 的对齐要求");
+    ASSERT(sizeof(int) == 4, "int 的大小");
+    ASSERT(alignof(int) == 4, "int 的对齐要求");
 
-    ASSERT(sizeof(double) == ?, "double 的大小");
-    ASSERT(alignof(double) == ?, "double 的对齐要求");
+    ASSERT(sizeof(double) == 8, "double 的大小");
+    ASSERT(alignof(double) == 8, "double 的对齐要求");
 
     // ---- 结构体的大小和对齐 ----
     // SimpleStruct: char(1) + padding(3) + int(4) + char(1) + padding(3)
-    ASSERT(sizeof(SimpleStruct) == ?, "SimpleStruct 的大小");
+    ASSERT(sizeof(SimpleStruct) == 12, "SimpleStruct 的大小");
     // 结构体的对齐要求等于其成员中最大的对齐要求
-    ASSERT(alignof(SimpleStruct) == ?, "SimpleStruct 的对齐要求 (等于 alignof(int))");
+    ASSERT(alignof(SimpleStruct) == 4, "SimpleStruct 的对齐要求 (等于 alignof(int))");
 
     // PackedStruct: char(1) + char(1) + padding(2) + int(4)
-    ASSERT(sizeof(PackedStruct) == ?, "PackedStruct 的大小 (成员顺序优化)");
-    ASSERT(alignof(PackedStruct) == ?, "PackedStruct 的对齐要求 (等于 alignof(int))");
+    ASSERT(sizeof(PackedStruct) == 8, "PackedStruct 的大小 (成员顺序优化)");
+    ASSERT(alignof(PackedStruct) == 4, "PackedStruct 的对齐要求 (等于 alignof(int))");
 
     // AlignedStruct: char(1) + padding(7) + double(8) + int(4) + padding(4)
-    ASSERT(sizeof(AlignedStruct) == ?, "AlignedStruct 的大小");
-    ASSERT(alignof(AlignedStruct) == ?, "AlignedStruct 的对齐要求 (等于 alignof(double))");
+    ASSERT(sizeof(AlignedStruct) == 24, "AlignedStruct 的大小");
+    ASSERT(alignof(AlignedStruct) == 8, "AlignedStruct 的对齐要求 (等于 alignof(double))");
 
     // ---- alignas ----
     // CustomAlignedStruct: alignas(16) 强制对齐为 16
     // int(4) + char(1) + padding(11)
-    ASSERT(sizeof(CustomAlignedStruct) == ?, "CustomAlignedStruct 的大小 (受 alignas 影响)");
-    ASSERT(alignof(CustomAlignedStruct) == ?, "CustomAlignedStruct 的对齐要求 (由 alignas 指定)");
+    ASSERT(sizeof(CustomAlignedStruct) == 16, "CustomAlignedStruct 的大小 (受 alignas 影响)");
+    ASSERT(alignof(CustomAlignedStruct) == 16, "CustomAlignedStruct 的对齐要求 (由 alignas 指定)");
 
     // ---- 成员偏移量 offsetof ----
     // READ: offsetof <https://zh.cppreference.com/w/cpp/types/offsetof>
-    ASSERT(offsetof(SimpleStruct, a) == ?, "SimpleStruct::a 的偏移量");
-    ASSERT(offsetof(SimpleStruct, b) == ?, "SimpleStruct::b 的偏移量 (考虑 a 后面的填充)");
-    ASSERT(offsetof(SimpleStruct, c) == ?, "SimpleStruct::c 的偏移量 (考虑 b 后面的填充)");
+    ASSERT(offsetof(SimpleStruct, a) == 0, "SimpleStruct::a 的偏移量");
+    ASSERT(offsetof(SimpleStruct, b) == 4, "SimpleStruct::b 的偏移量 (考虑 a 后面的填充)");
+    ASSERT(offsetof(SimpleStruct, c) == 8, "SimpleStruct::c 的偏移量 (考虑 b 后面的填充)");
 
-    ASSERT(offsetof(PackedStruct, a) == ?, "PackedStruct::a 的偏移量");
-    ASSERT(offsetof(PackedStruct, c) == ?, "PackedStruct::c 的偏移量");
-    ASSERT(offsetof(PackedStruct, b) == ?, "PackedStruct::b 的偏移量 (考虑 a 和 c 后面的填充)");
+    ASSERT(offsetof(PackedStruct, a) == 0, "PackedStruct::a 的偏移量");
+    ASSERT(offsetof(PackedStruct, c) == 1, "PackedStruct::c 的偏移量");
+    ASSERT(offsetof(PackedStruct, b) == 4, "PackedStruct::b 的偏移量 (考虑 a 和 c 后面的填充)");
 
     // THINK: 为什么调整结构体成员的顺序会影响结构体的大小？
     // THINK: `alignof` 和 `alignas` 有什么区别和联系？

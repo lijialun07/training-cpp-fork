@@ -14,13 +14,13 @@ int main(int argc, char **argv) {
     // 存储一个 int
     a = 10;
     ASSERT(a.has_value(), "any 现在应该包含值");
-    ASSERT(a.type() == typeid(?), "any 中值的类型应为 int");
-    ASSERT(std::any_cast<int>(a) == ?, "any 中的 int 值应为 10");
+    ASSERT(a.type() == typeid(int), "any 中值的类型应为 int");
+    ASSERT(std::any_cast<int>(a) == 10, "any 中的 int 值应为 10");
 
     // 存储一个 std::string
     a = std::string("Hello");
-    ASSERT(a.type() == typeid(?), "any 中值的类型应为 std::string");
-    ASSERT(std::any_cast<std::string>(a) == "?", "any 中的 string 值应为 \"Hello\"");
+    ASSERT(a.type() == typeid(std::string), "any 中值的类型应为 std::string");
+    ASSERT(std::any_cast<std::string>(a) == "Hello", "any 中的 string 值应为 \"Hello\"");
 
     // 使用 reset() 清空 any
     a.reset();
@@ -28,15 +28,15 @@ int main(int argc, char **argv) {
 
     // 存储一个 vector<double>
     a = std::vector<double>{3.14, 2.71};
-    ASSERT(a.type() == typeid(?), "any 中值的类型应为 std::vector<double>");
-    ASSERT(std::any_cast<std::vector<double>>(a).size() == ?, "vector 的大小应为 2");
-    ASSERT(std::any_cast<std::vector<double>>(a)[0] == ?, "vector 的第一个元素应为 3.14");
+    ASSERT(a.type() == typeid(std::vector<double>), "any 中值的类型应为 std::vector<double>");
+    ASSERT(std::any_cast<std::vector<double>>(a).size() == 2, "vector 的大小应为 2");
+    ASSERT(std::any_cast<std::vector<double>>(a)[0] == 3.14, "vector 的第一个元素应为 3.14");
 
     // 使用 emplace 原地构造
     a.emplace<std::pair<int, char>>(5, 'a');
-    ASSERT(a.type() == typeid(?), "any 中值的类型应为 std::pair<int, char>");
-    ASSERT(std::any_cast<std::pair<int, char>>(a).first == ?, "pair 的第一个元素应为 5");
-    ASSERT(std::any_cast<std::pair<int, char>>(a).second == '?', "pair 的第二个元素应为 'a'");
+    ASSERT(a.type() == typeid(std::pair<int, char>), "any 中值的类型应为 std::pair<int, char>");
+    ASSERT((std::any_cast<std::pair<int, char>>(a).first == 5), "pair 的第一个元素应为 5");
+    ASSERT((std::any_cast<std::pair<int, char>>(a).second == 'a'), "pair 的第二个元素应为 'a'");
 
     // 尝试获取错误的类型 (应该抛出异常)
     bool caught = false;
