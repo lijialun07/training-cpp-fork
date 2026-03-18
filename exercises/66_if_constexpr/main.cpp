@@ -24,14 +24,14 @@ std::string process(T value) {
 
 // TODO: 将下列 `?` 替换为正确的代码
 int main(int argc, char **argv) {
-    ASSERT(process(10) == "?", "处理 int");
-    ASSERT(process(3.14) == "?", "处理 double");
-    ASSERT(process(std::string("Hello")) == "?", "处理 std::string");
-    ASSERT(process('a') == "?", "处理 char (也是整数类型)");
-    ASSERT(process(true) == "?", "处理 bool (也是整数类型)");
+    ASSERT(process(10) == "Integral: 10", "处理 int");
+    ASSERT(process(3.14) == "Floating point: 3.140000", "处理 double");
+    ASSERT(process(std::string("Hello")) == "String: Hello", "处理 std::string");
+    ASSERT(process('a') == "Integral: 97", "处理 char (也是整数类型)");
+    ASSERT(process(true) == "Integral: 1", "处理 bool (也是整数类型)");
 
     struct Unknown {};
-    ASSERT(process(Unknown{}) == "?", "处理未知类型");
+    ASSERT(process(Unknown{}) == "Unknown type", "处理未知类型");
 
     // THINK: `if constexpr` 和普通的 `if` 语句有什么主要区别？
     // THINK: `if constexpr` 在模板元编程中有什么作用？

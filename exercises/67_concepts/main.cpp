@@ -45,19 +45,19 @@ std::size_t count_integers(const C &container) {
 // TODO: 将下列 `?` 替换为正确的代码
 int main(int argc, char **argv) {
     // 测试 Addable Concept
-    ASSERT(sum(5, 3) == ?, "Addable: int + int");
-    ASSERT(sum(std::string("Hello, "), std::string("World!")) == "?", "Addable: string + string");
+    ASSERT(sum(5, 3) == 8, "Addable: int + int");
+    ASSERT(sum(std::string("Hello, "), std::string("World!")) == "Hello, World!", "Addable: string + string");
     // struct NotAddable {};
     // sum(NotAddable{}, NotAddable{}); // 这行代码应该无法编译
 
     // 测试 Integral Concept
     OnlyInt<int> oi = {10};
-    ASSERT(oi.value == ?, "Integral: OnlyInt<int>");
+    ASSERT(oi.value == 10, "Integral: OnlyInt<int>");
     // OnlyInt<double> od = {3.14}; // 这行代码应该无法编译
 
     // 测试 Container Concept 和组合约束
     std::vector<int> v = {1, 2, 3, 4, 5};
-    ASSERT(count_integers(v) == ?, "Container & Integral: std::vector<int>");
+    ASSERT(count_integers(v) == 5, "Container & Integral: std::vector<int>");
 
     std::vector<double> vd = {1.1, 2.2};
     // count_integers(vd); // 这行代码应该无法编译，因为 double 不是 Integral

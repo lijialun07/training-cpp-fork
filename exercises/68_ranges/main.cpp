@@ -1,4 +1,5 @@
 #include "../exercise.h"
+#include <algorithm>
 #include <numeric>
 #include <ranges>
 #include <string>
@@ -11,28 +12,28 @@ int main(int argc, char **argv) {
     std::vector<int> numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
     // 使用 ranges::views::filter 筛选偶数
-    auto even_numbers_view = numbers | std::views::filter([](int n) { return n % 2 == ? ; });
+    auto even_numbers_view = numbers | std::views::filter([](int n) { return n % 2 == 0; });
     std::vector<int> even_numbers;
     std::ranges::copy(even_numbers_view, std::back_inserter(even_numbers));
-    ASSERT(even_numbers.size() == ?, "筛选出的偶数数量");
-    ASSERT(even_numbers[0] == ?, "第一个偶数");
-    ASSERT(even_numbers.back() == ?, "最后一个偶数");
+    ASSERT(even_numbers.size() == 5, "筛选出的偶数数量");
+    ASSERT(even_numbers[0] == 2, "第一个偶数");
+    ASSERT(even_numbers.back() == 10, "最后一个偶数");
 
     // 使用 ranges::views::transform 将数字平方
-    auto squared_numbers_view = numbers | std::views::transform([](int n) { return n * ? ; });
+    auto squared_numbers_view = numbers | std::views::transform([](int n) { return n * n ; });
     std::vector<int> squared_numbers;
     std::ranges::copy(squared_numbers_view, std::back_inserter(squared_numbers));
-    ASSERT(squared_numbers.size() == ?, "平方后数字的数量");
-    ASSERT(squared_numbers[0] == ?, "第一个数字的平方");
-    ASSERT(squared_numbers[2] == ?, "第三个数字的平方");
+    ASSERT(squared_numbers.size() == 10, "平方后数字的数量");
+    ASSERT(squared_numbers[0] == 1, "第一个数字的平方");
+    ASSERT(squared_numbers[2] == 9, "第三个数字的平方");
 
     // 组合视图：筛选偶数，然后平方，最后取前三个
     auto processed_view = numbers
                         | std::views::filter([](int n){
-        return n % 2 == ? ; })
+        return n % 2 == 0 ; })
                         | std::views::transform([](int n){
-        return n * ? ; })
-                        | std::views::take(?);
+        return n * n ; })
+                        | std::views::take(3);
 
     std::vector<int> processed_numbers;
     std::ranges::copy(processed_view, std::back_inserter(processed_numbers));
